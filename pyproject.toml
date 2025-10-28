@@ -1,16 +1,8 @@
 [build-system]
-# --------------------------------------------------------------------
-# Build backend configuration (PEP 518 / PEP 621)
-# setuptools is used for building the package; wheel for distribution.
-# --------------------------------------------------------------------
 requires = ["setuptools>=69", "wheel"]
 build-backend = "setuptools.build_meta"
 
-
 [project]
-# --------------------------------------------------------------------
-# Basic project metadata
-# --------------------------------------------------------------------
 name = "FlavorBuilder"
 version = "0.1.0"
 description = "Finite-group and model-building utilities interfacing with GAP"
@@ -24,14 +16,9 @@ dependencies = [
     "pandas",
 ]
 
-[project.optional-dependencies]
-notebook = [
-    "IPython"
-]
-
 authors = [
   { name = "Victoria Knapp Pérez", email = "vknapppe@uci.edu" },
-  { name = "Jake Rudolph", email = "jirudolp@uci.edu"}
+  { name = "Jake Rudolph", email = "jirudolp@uci.edu" }
 ]
 
 keywords = [
@@ -54,27 +41,19 @@ classifiers = [
   "Topic :: Scientific/Engineering :: Physics"
 ]
 
+[project.optional-dependencies]
+notebook = ["IPython"]
+
 [tool.setuptools]
-# --------------------------------------------------------------------
-# Source layout and packaging configuration
-# --------------------------------------------------------------------
 package-dir = {"" = "src"}
 
-
 [tool.setuptools.packages.find]
-# Automatically discover all packages under src/
 where = ["src"]
 
-
 [tool.setuptools.package-data]
-# Include GAP script inside the built wheel
 "FlavorBuilder.PyDiscrete" = ["GAP-Script/*.gap"]
 
-
 [project.urls]
-# --------------------------------------------------------------------
-# Optional: for GitHub / PyPI project page links
-# --------------------------------------------------------------------
 Homepage = "https://github.com/victoria-kp/FlavorBuilder"
 Repository = "https://github.com/victoria-kp/FlavorBuilder"
 Issues = "https://github.com/victoria-kp/FlavorBuilder"
