@@ -5,7 +5,7 @@ A unified Python framework for model building with finite flavor symmetries in p
 
 **Model2Mass**: a symbolic and numerical framework for constructing Lagrangians, derive mass matrices, and compute phenomenologically relevant quantities for BSM flavor models with finite flavor symmetry.
 
-The Tutorials folder contains Jupyter notebooks demonstrating how to use the two core packages. The FastEvaluation folder includes a notebook with all the necessary code to derive the analytical expressions for the mass matrices and compute the corresponding χ² values using the parameters stored in the .txt files. This notebook can also be used to validate the neutrino flavor models presented in [arXiv:2506.08080 [hep-ph]](https://arxiv.org/pdf/2506.08080) .
+The Tutorials folder in the [GitHub](https://github.com/victoria-kp/FlavorBuilder) contains Jupyter notebooks demonstrating how to use the two core packages. The FastEvaluation folder in the [GitHub](https://github.com/victoria-kp/FlavorBuilder) includes a notebook with all the necessary code to derive the analytical expressions for the mass matrices and compute the corresponding χ² values using the parameters stored in the .txt files. This notebook can also be used to validate the neutrino flavor models presented in [arXiv:2506.08080 [hep-ph]](https://arxiv.org/pdf/2506.08080) .
 
 # Requirements:
 1. Python ≥ 3.9
@@ -19,7 +19,7 @@ Option 1: You can install FlavorBuilder from PyPI with pip by running
    pip install FlavorBuilder
 ```
 
-Option 2: You can also download the package from [GitHub](https://github.com/victoria-kp/PyDiscrete_And_Model2Mass) and add it to your Python path:
+Option 2: You can also download the package from [GitHub](https://github.com/victoria-kp/FlavorBuilder) and add it to your Python path:
 
 ```bash
 
@@ -47,7 +47,7 @@ I. Esteban, M. C. González-García, M. Maltoni, T. Schwetz, and A. Zhou, The fa
 PyDiscrete is partly the translation of [Discrete](https://discrete.hepforge.org/) 
 
 # Contact and Maintenance
-The FlavorBuilder software is authored by Victoria Knapp Pérez and Jake Rudolph. For questions, bug reports, or collaboration inquiries, please contact Victoria by [email](vknapppe@uci.edu) or open an issue on the [GitHub](https://github.com/victoria-kp/PyDiscrete_And_Model2Mass) repository.
+The FlavorBuilder software is authored by Victoria Knapp Pérez and Jake Rudolph. For questions, bug reports, or collaboration inquiries, please contact Victoria by [email](vknapppe@uci.edu) or open an issue on the [GitHub](https://github.com/victoria-kp/FlavorBuilder) repository.
 
 
 
