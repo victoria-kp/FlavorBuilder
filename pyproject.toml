@@ -18,6 +18,17 @@ readme = "README.md"
 requires-python = ">=3.9"
 license = { file = "LICENSE" }
 
+dependencies = [
+    "numpy",
+    "sympy",
+    "pandas",
+]
+
+[project.optional-dependencies]
+notebook = [
+    "IPython"
+]
+
 authors = [
   { name = "Victoria Knapp Pérez", email = "vknapppe@uci.edu" },
   { name = "Jake Rudolph", email = "jirudolp@uci.edu"}
@@ -31,7 +42,8 @@ keywords = [
   "symmetry",
   "mass-matrices",
   "beyond-standard-model",
-  "physics"
+  "physics",
+  "Amber"
 ]
 
 classifiers = [
