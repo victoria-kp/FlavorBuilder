@@ -9,3 +9,4 @@ Provides:
 from .PyDiscrete import Group
 
 __all__ = ["Group"]
+__version__ = "0.1.0"
