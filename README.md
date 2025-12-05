@@ -10,7 +10,7 @@ The Tutorials folder in the [GitHub](https://github.com/victoria-kp/FlavorBuilde
 # Requirements:
 1. Python ≥ 3.9
 2. [GAP](https://www.gap-system.org/) ≥ 4.11.1
-3. Dependencies: numpy, sympy, pandas, json, os, itertools, random, collections, numbers, subprocess, ast, re, and the optionally IPython (for LaTeX table visualization)
+3. Dependencies: numpy, sympy, pandas, json, os, itertools, random, collections, numbers, subprocess, ast, re, pickle and the optionally IPython (for LaTeX table visualization)
 
 # Installation 
 Option 1: You can install FlavorBuilder from PyPI with pip by running
