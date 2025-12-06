@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "FlavorBuilder"
-version = "0.3.0"
+version = "0.3.1"
 description = "Finite-group and model-building utilities interfacing with GAP"
 readme = "README.md"
 requires-python = ">=3.9"
@@ -14,7 +14,6 @@ dependencies = [
     "numpy",
     "sympy",
     "pandas",
-    "pickle",
 ]
 
 authors = [
@@ -53,6 +52,8 @@ where = ["src"]
 
 [tool.setuptools.package-data]
 "FlavorBuilder.PyDiscrete" = ["GAP-Script/*.gap"]
+"FlavorBuilder.PyDiscrete" = ["saved_groups.pkl"]
+
 
 [project.urls]
 Homepage = "https://github.com/victoria-kp/FlavorBuilder"
