@@ -7,7 +7,7 @@ import ast
 import re
 from pathlib import Path
 import importlib.resources as ir
-
+import pickle
 
 class Group():
  
@@ -25,6 +25,9 @@ class Group():
         
        - GAPerror: str
            Error printed by GAP in case the group was not called.
+
+       -  GAP_run : boolean
+           Boolean that tells whether GAP was used or the group was taken from the saved_groups.pkl file.
     
        - structure_description: str
            Name given by GAP.
@@ -120,56 +123,67 @@ class Group():
         
         
         """
-        
-
-    
         self.name = "SmallGroup(" + str(gapID1) + "," + str(gapID2) + ")"
 
-        # Path for .gap file
-        gap_exe = Path(gap_path).expanduser().resolve()
-        if not gap_exe.exists() or not os.access(gap_exe, os.X_OK):
-            raise RuntimeError(
-                f"Invalid GAP executable path: '{gap_exe}'. "
-                "Provide the full path to the GAP binary and ensure it is executable."
-            )
-
-        #Prepare gap script to extract group info
-        with ir.as_file(
-                ir.files("FlavorBuilder.PyDiscrete") / "GAP-Script" / "extractGroupDataPy.gap"
-        ) as gap_script_path:
-            # Make a GAP-safe literal path (forward slashes; escape quotes)
-            gap_script_literal = '"' + gap_script_path.as_posix().replace('"', r'\"') + '"'
-
-            # 3) Build batch code exactly like your original logic
-            gap_code = (
-                f"Read({gap_script_literal});; "
-                f"MBgetGroupInfo({self.name});; "
-                f"quit;;"
-            )
-
-
-
-        # Run GAP as a subprocess
-        result = subprocess.run(
-            [str(gap_exe), "-q", "-b"],
-            input=gap_code.encode("utf-8"),
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-            check=False,
-        )
-
-        self.GAPoutput = result.stdout.decode("utf-8", "replace").strip()
-        self.GAPerror = result.stderr.decode("utf-8", "replace").strip()
         
-        #Prints the GAP error if the group properties were not sucesfully obtained from GAP
-        if result.returncode != 0:
-            raise RuntimeError(
-                f"GAP execution failed for {self.name} (exit code {result.returncode}).\n"
-                f"STDERR:\n{self.GAPerror}"
+        with ir.as_file(
+                ir.files("FlavorBuilder.PyDiscrete") / "saved_groups.pkl"
+        ) as saved_groups_pickle_path:
+            with open(saved_groups_pickle_path, "rb") as f:
+                self.saved_groups_dict = pickle.load(f)
+
+        if (gapID1, gapID2) in self.saved_groups_dict:
+            self.GAPoutput = self.saved_groups_dict[(gapID1, gapID2)]
+            self.GAP_run = False
+
+        else:
+            # Path for .gap file
+            gap_exe = Path(gap_path).expanduser().resolve()
+            if not gap_exe.exists() or not os.access(gap_exe, os.X_OK):
+                raise RuntimeError(
+                    f"Invalid GAP executable path: '{gap_exe}'. "
+                    "Provide the full path to the GAP binary and ensure it is executable."
+                    )
+
+            #Prepare gap script to extract group info
+            with ir.as_file(
+                    ir.files("FlavorBuilder.PyDiscrete") / "GAP-Script" / "extractGroupDataPy.gap"
+            ) as gap_script_path:
+                    # Make a GAP-safe literal path (forward slashes; escape quotes)
+                    gap_script_literal = '"' + gap_script_path.as_posix().replace('"', r'\"') + '"'
+
+
+                    # 3) Build batch code exactly like your original logic
+                    gap_code = (
+                        f"Read({gap_script_literal});; "
+                        f"MBgetGroupInfo({self.name});; "
+                        f"quit;;"
+                        )
+
+
+            # Run GAP as a subprocess
+            result = subprocess.run(
+                [str(gap_exe), "-q", "-b"],
+                input=gap_code.encode("utf-8"),
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                check=False,
             )
 
-        if self.GAPerror:
-            print(f"[Warning] GAP reported messages for {self.name}:\n{self.GAPerror}\n")
+            self.GAPoutput = result.stdout.decode("utf-8", "replace").strip()
+            self.GAPerror = result.stderr.decode("utf-8", "replace").strip()
+        
+            #Prints the GAP error if the group properties were not sucesfully obtained from GAP
+            if result.returncode != 0:
+                raise RuntimeError(
+                    f"GAP execution failed for {self.name} (exit code {result.returncode}).\n"
+                    f"STDERR:\n{self.GAPerror}"
+                )
+
+            if self.GAPerror:
+                print(f"[Warning] GAP reported messages for {self.name}:\n{self.GAPerror}\n")
+            else:
+                self.saved_groups_dict[(gapID1, gapID2)] = self.GAPoutput
         
 
         #Looks for the information in the GAPoutput
