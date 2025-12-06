@@ -51,8 +51,10 @@ package-dir = {"" = "src"}
 where = ["src"]
 
 [tool.setuptools.package-data]
-"FlavorBuilder.PyDiscrete" = ["GAP-Script/*.gap"]
-"FlavorBuilder.PyDiscrete" = ["saved_groups.pkl"]
+"FlavorBuilder.PyDiscrete" = [
+    "GAP-Script/*.gap",
+    "saved_groups.pkl",
+]
 
 
 [project.urls]
